@@ -1,4 +1,4 @@
-# xnr
+# xnr (xtreme node runner)
 
 ![banner](banner.svg)
 

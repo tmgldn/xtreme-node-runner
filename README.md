@@ -1,11 +1,43 @@
-# xnr (xtreme node runner)
+> **ARCHIVED**
+>
+> This package was developed in a time when:
+>
+> - node did not have native support for stripping TS types
+> - tsx was immature
+> - deno had no npm support
+> - bun was not stable
+>
+> I am going to reuse the npm:xnr package for a different project starting at v4.
+>
+> # Migrating off xtreme-node-runner
+>
+> | Tool | `xnr file.ts` becomes | Docs |
+> | ---- | --------------------- | ---- |
+> | Node.js (native) | `node file.ts` | [Running TypeScript Natively](https://nodejs.org/learn/typescript/run-natively), [API: Modules TypeScript](https://nodejs.org/api/typescript.html) |
+> | tsx | `npx tsx file.ts` | [tsx.dev](https://tsx.dev/), [npm: tsx](https://www.npmjs.com/package/tsx) |
+> | Deno | `deno run file.ts` | [TypeScript support](https://docs.deno.com/runtime/fundamentals/typescript/), [`deno run`](https://docs.deno.com/runtime/reference/cli/run/) |
+> | Bun | `bun run file.ts` | [Bun TypeScript](https://bun.com/docs/runtime/typescript), [`bun run`](https://bun.sh/docs/cli/run.md) |
+> 
+> ## Which one to pick
+> 
+> Flag-free `node file.ts` requires one of these minimum versions, per major:
+>
+> | Node major | Min version for native `node file.ts` |
+> | ---------- | -------------------------------------- |
+> | 18, 20     | never available - use `tsx` (or Deno/Bun) |
+> | 22         | 22.18.0 |
+> | 23         | 23.6.0 |
+> | 24+        | 24.0.0 (stable since 24.12.0) |
+> 
+> - **On any of the versions above**: use native type stripping - `node file.ts`, no flag, no install.
+> - **On any older Node**: use `npx tsx file.ts`. tsx needs Node >= 18 and supports the full TypeScript language, including JSX.
+> - **On Node < 18**: tsx is unsupported; upgrade Node or use Deno/Bun, which both run TypeScript natively with no flags.
+> 
+> Note: native type stripping only erases types - no enums, no namespaces with runtime code, no parameter properties, no JSX and no type checking (`tsc --noEmit` remains your job). If you need those, tsx is the closest drop-in replacement for xnr.
+
+# xtreme node runner (formerly npm:xnr)
 
 ![banner](banner.svg)
-
-![npm](https://img.shields.io/npm/v/xnr)
-![npm type definitions](https://img.shields.io/npm/types/xnr)
-![license](https://img.shields.io/npm/l/xnr)
-[![install size](https://packagephobia.com/badge?p=xnr)](https://packagephobia.com/result?p=xnr)
 
 Easily, quickly, and reliably run a TypeScript Node.js script from the CLI with zero configuration.
 _Blazingly fast 🚀_
